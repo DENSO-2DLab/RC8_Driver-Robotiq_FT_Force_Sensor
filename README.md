@@ -1,9 +1,13 @@
-# RC8_Driver-Robotiq_FT_Force_Sensor
+# RC8 Driver - Robotiq-FT Force Sensor
+
 PacScript driver to communicate between an RC8 controller and the Robotiq FT sensor. 
+
+- [Release Page](https://github.com/DENSO-2DLab/RC8_Driver-Robotiq_FT_Force_Sensor/releases)
 
 ### Contents
 
-RC8 Driver for reading force/torque data from ATI AI Gamma sensor via TCP/IP. 
+- Documentation
+- RC8 Driver for reading force/torque data from ATI AI Gamma sensor via TCP/IP. 
 
 ### System Requirements
 
@@ -11,8 +15,9 @@ Please review documentation for more information on system requirements and how 
 
 ### Contributing 
 
-Feel free to contribute by fixing any bugs and adding new features to this repository. 
-Once you are ready to share open a new pull request or generate an Issue. 
+Feel free to contribute by fixing any bugs and adding new features to this repository. Once you are ready to share open a new pull request or generate an Issue. 
+
+- [Submit an Issue](https://github.com/DENSO-2DLab/RC8_Driver-Robotiq_FT_Force_Sensor/issues)
 
 ### License 
 
