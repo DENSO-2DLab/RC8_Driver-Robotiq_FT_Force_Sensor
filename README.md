@@ -20,5 +20,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 v1.30.1 
-- Adding Mobbus Force/Torque commands
+- Adding Modbus Force/Torque commands
 - Updated Documentation
