@@ -1,0 +1,106 @@
+#include <PanelMain.h> raw
+#include "Robotiq_FS.pcs"
+
+Dim Option As Variant	'Return Variable
+Dim stream_flag As Integer	
+
+Dim zero_fx	As Single
+Dim zero_fy As Single
+Dim zero_fz As Single
+Dim zero_mx	As Single
+Dim zero_my As Single
+Dim zero_mz As Single
+
+Sub Panel_INITIALIZE()
+	'Get Sensor HW Information
+	Call Robotiq_FS("Stop_Stream", Option)
+	Call Robotiq_FS("Info", Option)
+	
+	'Get Data
+	Label10.Caption = Option(0)
+	Label11.Caption = Option(1)
+	Label12.Caption = Option(2)
+
+	LB1.Active = 3	'Enable Start Button
+End Sub
+
+Sub LB1_CLICKED()
+	'Start Streamming
+	Call Robotiq_FS("Start_Stream", Option)
+	stream_flag = 1	'Turn Stream Flag -> ON
+	PB1.Active = 3
+	LB1.Active = 1
+	PB2.Active = 3
+End Sub
+
+Sub PB1_CLICKED()
+	Call Robotiq_FS("Stop_Stream", Option)
+	stream_flag = 0	'Turn Stream Flag -> OFF
+	PB1.Active = 1
+	LB1.Active = 3
+	PB2.Active = 1
+End Sub
+
+Sub TIMER1_TIMER()
+	If stream_flag = 1 Then
+		'Get Data
+		'Run FS_INFO
+		Call Robotiq_FS("GetData", Option)
+		Label18.Caption = SprintF("%-08.3f", Option(0) - zero_fx)
+		Label17.Caption = SprintF("%-08.3f", Option(1) - zero_fy)
+		Label16.Caption = SprintF("%-08.3f", Option(2) - zero_fz) 
+		Label15.Caption = SprintF("%-08.3f", Option(3) - zero_mx)
+		Label14.Caption = SprintF("%-08.3f", Option(4) - zero_my)
+		Label13.Caption = SprintF("%-08.3f", Option(5) - zero_mz)
+	End If 
+End Sub
+
+Sub PB2_CLICKED()
+'Zero calibration
+	If stream_flag = 1 Then 
+		Call Robotiq_FS("GetData", Option)
+		zero_fx = Option(0)
+		zero_fy = Option(1)
+		zero_fz = Option(2)
+		zero_mx = Option(3)
+		zero_my = Option(4)
+		zero_mz = Option(5)
+	End If 
+End Sub
+#ifdef TP_DESIGNER
+'<<--TPDESIGNER_RESERVED-->>
+CAPTION=""
+BG=&H754E3A
+FG=&H000000
+TIMEOUT=2000
+TIMEOUTMODE=1
+RELEASEMODE=0
+PNLCCVER=232
+COLORTYPE=1
+FONTTYPE=1
+BORDERSTYLE=0
+CONTROLSORT=0
+add_widget 1,"LB1",40,30,140,40,&H000000,&HB0B0B0,0,1,1,"START",16,0,0,"Tahoma";
+add_widget 1,"PB1",40,100,140,40,&H000000,&HB0B0B0,0,1,1,"STOP",16,0,0,"Tahoma";
+add_widget 15,"Timer1",600,330,0,1,100;
+add_widget 2,"Label1",40,170,50,30,&H000000,&HB0B0B0,0,1,0,"FX",16,0,"Tahoma","",1,1;
+add_widget 2,"Label3",40,210,50,30,&H000000,&HB0B0B0,0,1,0,"FY",16,0,"Tahoma","",1,1;
+add_widget 2,"Label4",40,250,50,30,&H000000,&HB0B0B0,0,1,0,"FZ",16,0,"Tahoma","",1,1;
+add_widget 2,"Label2",310,170,50,30,&H000000,&HB0B0B0,0,1,0,"MX",16,0,"Tahoma","",1,1;
+add_widget 2,"Label5",310,210,50,30,&H000000,&HB0B0B0,0,1,0,"MY",16,0,"Tahoma","",1,1;
+add_widget 2,"Label6",310,250,50,30,&H000000,&HB0B0B0,0,1,0,"MZ",16,0,"Tahoma","",1,1;
+add_widget 1,"PB2",250,300,140,40,&H000000,&HB0B0B0,0,1,1,"ZERO",16,0,0,"Tahoma";
+add_widget 2,"Label7",220,30,150,30,&H000000,&HB0B0B0,0,1,0,"Firmware Ver.",16,0,"Tahoma","",1,1;
+add_widget 2,"Label8",220,70,150,30,&H000000,&HB0B0B0,0,1,0,"Serial Number",16,0,"Tahoma","",1,1;
+add_widget 2,"Label9",220,110,150,30,&H000000,&HB0B0B0,0,1,0,"Production Year",16,0,"Tahoma","",1,1;
+add_widget 2,"Label10",390,30,150,30,&H000000,&HB0B0B0,0,1,0,"",16,0,"Tahoma","",1,1;
+add_widget 2,"Label11",390,70,150,30,&H000000,&HB0B0B0,0,1,0,"",16,0,"Tahoma","",1,1;
+add_widget 2,"Label12",390,110,150,30,&H000000,&HB0B0B0,0,1,0,"",16,0,"Tahoma","",1,1;
+add_widget 2,"Label18",100,170,190,30,&H000000,&HB0B0B0,0,1,0,"",16,2,"Tahoma","",1,1;
+add_widget 2,"Label17",100,210,190,30,&H000000,&HB0B0B0,0,1,0,"",16,2,"Tahoma","",1,1;
+add_widget 2,"Label16",100,250,190,30,&H000000,&HB0B0B0,0,1,0,"",16,2,"Tahoma","",1,1;
+add_widget 2,"Label15",380,170,210,30,&H000000,&HB0B0B0,0,1,0,"",16,2,"Tahoma","",1,1;
+add_widget 2,"Label14",380,210,210,30,&H000000,&HB0B0B0,0,1,0,"",16,2,"Tahoma","",1,1;
+add_widget 2,"Label13",380,250,210,30,&H000000,&HB0B0B0,0,1,0,"",16,2,"Tahoma","",1,1;
+'<<--TPDESIGNER_RESERVED-->>
+#endif

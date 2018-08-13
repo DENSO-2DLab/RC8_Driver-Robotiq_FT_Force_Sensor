@@ -1,0 +1,40 @@
+'!TITLE "Denso robot program"
+
+Sub Main
+
+#Include "Robotiq_FS.pcs"
+
+Sub Main
+
+	Dim Option As Variant
+	
+	Comm.Close COM_PORT_FT
+	
+	Call Robotiq_FS("ForceX", Option)	'Get ForceX Value
+	V[0] = V(Option(0), Option(1), Option(2))
+
+	Call Robotiq_FS("ForceY", Option)	'Get ForceY Value
+	V[1] = V(Option(0), Option(1), Option(2))
+
+	Call Robotiq_FS("ForceZ", Option)	'Get ForceZ Value
+	V[2] = V(Option(0), Option(1), Option(2))
+	
+	Call Robotiq_FS("MomentX", Option)	'Get MomentX Value
+	V[3] = V(Option(0), Option(1), Option(2))
+
+	Call Robotiq_FS("MomentY", Option)	'Get MomentY Value
+	V[4] = V(Option(0), Option(1), Option(2))
+
+	Call Robotiq_FS("MomentZ", Option)	'Get ForceZ Value
+	V[5] = V(Option(0), Option(1), Option(2))
+
+	Call Robotiq_FS("AccelX", Option)	'Get Acceleration in Tool X
+	V[6] = V(Option(0), Option(1), Option(2))
+
+	Call Robotiq_FS("AccelY", Option)	'Get Acceleration in Tool Y
+	V[7] = V(Option(0), Option(1), Option(2))
+
+	Call Robotiq_FS("AccelZ", Option)	'Get Acceleration in Tool Z
+	V[8] = V(Option(0), Option(1), Option(2))
+
+End Sub
